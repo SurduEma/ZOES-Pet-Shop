@@ -1,0 +1,22 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+
+  <rect width="600" height="400" fill="#f7efe3"></rect>
+
+  <circle cx="250" cy="140" r="26" fill="#a76c38"></circle>
+  <circle cx="310" cy="115" r="26" fill="#a76c38"></circle>
+  <circle cx="370" cy="140" r="26" fill="#a76c38"></circle>
+  <circle cx="405" cy="200" r="24" fill="#a76c38"></circle>
+
+  <path d="M310 170
+           C260 170 230 220 230 260
+           C230 295 270 300 290 285
+           C305 275 325 275 340 285
+           C365 300 390 285 390 260
+           C390 220 355 170 310 170Z" fill="#a76c38"></path>
+
+  <text x="300" y="355" font-family="Arial" font-size="30" font-weight="bold" text-anchor="middle" fill="#513421">
+    ZOE'S Pet Shop
+  </text>
+
+</svg>

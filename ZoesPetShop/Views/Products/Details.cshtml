@@ -1,0 +1,72 @@
+﻿@model ZoesPetShop.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container py-5">
+
+    <a asp-controller="Products"
+       asp-action="Index"
+       class="btn btn-outline-secondary mb-4">
+
+        Back to Products
+
+    </a>
+
+    <div class="row g-5">
+
+        <!-- Product Image -->
+        <div class="col-md-5">
+
+            <img src="@Model.ImageUrl"
+                 alt="@Model.Name"
+                 class="img-fluid rounded"
+                 style="background:#f7efe3;
+            width:100%;" />
+
+        </div>
+
+        <!-- Product Information -->
+        <div class="col-md-7">
+
+            <p class="text-muted">
+                @Model.Category?.Name
+            </p>
+
+            <h1>@Model.Name</h1>
+
+            <hr />
+
+            <h3 class="mb-4">
+                @Model.Price.ToString("0.00") RON
+            </h3>
+
+            <h5>Description</h5>
+
+            <p>@Model.Description</p>
+
+            <h5>Availability</h5>
+
+            @if (Model.Stock > 0)
+            {
+                <p class="text-success">
+                    In Stock: @Model.Stock units
+                </p>
+            }
+            else
+            {
+                <p class="text-danger">
+                    Currently unavailable
+                </p>
+            }
+
+            <div class="alert alert-light mt-4">
+                ZOE'S Pet Shop offers premium
+                nutrition and specialized care
+                products for your pets.
+            </div>
+
+        </div>
+    </div>
+</div>

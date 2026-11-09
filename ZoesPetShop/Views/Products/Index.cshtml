@@ -1,0 +1,197 @@
+﻿
+@using ZoesPetShop.Models
+@model List<Product>
+
+@{
+    ViewData["Title"] = "Products";
+
+    var categories = (List<Category>)ViewBag.Categories;
+    string search = ViewBag.Search as string ?? "";
+    int? categoryId = (int?)ViewBag.CategoryId;
+    int page = (int)ViewBag.Page;
+    int totalPages = (int)ViewBag.TotalPages;
+}
+
+<div class="container py-4">
+
+    <div class="text-center p-5 mb-4 rounded"
+         style="background-color:#f7efe3;">
+
+        <h1 class="display-5 fw-bold">
+            ZOE'S Pet Shop
+        </h1>
+
+        <p class="lead">
+            Premium Nutrition & Specialized Pet Care
+        </p>
+
+        <p>
+            Discover quality products for pets
+            with special dietary and care needs.
+        </p>
+
+    </div>
+
+    <h2 class="mb-3">Our Products</h2>
+
+    <!-- Search -->
+    <form asp-controller="Products"
+          asp-action="Index"
+          method="get"
+          class="mb-4">
+
+        <div class="input-group">
+
+            <input type="text"
+                   name="search"
+                   value="@search"
+                   class="form-control"
+                   placeholder="Search products..." />
+
+            @if (categoryId.HasValue)
+            {
+                <input type="hidden"
+                       name="categoryId"
+                       value="@categoryId" />
+            }
+
+            <button type="submit"
+                    class="btn btn-dark">
+                Search
+            </button>
+
+        </div>
+    </form>
+
+    <!-- Categories -->
+    <div class="mb-4">
+
+        <h5>Categories</h5>
+
+        <a asp-action="Index"
+           asp-route-search="@search"
+           class="btn btn-outline-dark btn-sm mb-2">
+            All Products
+        </a>
+
+        @foreach (var category in categories)
+        {
+            <a asp-action="Index"
+               asp-route-categoryId="@category.Id"
+               asp-route-search="@search"
+               class="btn btn-outline-secondary btn-sm mb-2">
+
+                @category.Name
+
+            </a>
+        }
+
+    </div>
+
+    <!-- Products -->
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            No products found.
+            Try another search.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-sm-2
+                    row-cols-lg-3 g-4">
+
+            @foreach (var product in Model)
+            {
+                <div class="col">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <img src="@product.ImageUrl"
+                             alt="@product.Name"
+                             class="card-img-top"
+                             style="height:200px;
+                                    object-fit:contain;
+                                    background:#f7f3ed;" />
+
+                        <div class="card-body d-flex flex-column">
+
+                            <small class="text-muted">
+                                @product.Category?.Name
+                            </small>
+
+                            <h5 class="card-title mt-2">
+                                @product.Name
+                            </h5>
+
+                            <p class="card-text">
+                                @product.Description
+                            </p>
+
+                            <h5 class="mt-auto">
+                                @product.Price.ToString("0.00") RON
+                            </h5>
+
+                            @if (product.Stock > 0)
+                            {
+                                <p class="text-success">
+                                    In Stock: @product.Stock
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-danger">
+                                    Out of Stock
+                                </p>
+                            }
+
+                            <a asp-controller="Products"
+                               asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="btn btn-dark">
+
+                                View Details
+
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center
+                    align-items-center gap-3 mt-5">
+
+            @if (page > 1)
+            {
+                <a asp-action="Index"
+                   asp-route-page="@(page - 1)"
+                   asp-route-search="@search"
+                   asp-route-categoryId="@categoryId"
+                   class="btn btn-outline-dark">
+                    Previous
+                </a>
+            }
+
+            
+                <span>Page @(page) of @totalPages</span>
+
+
+            @if (page < totalPages)
+            {
+                <a asp-action="Index"
+                   asp-route-page="@(page + 1)"
+                   asp-route-search="@search"
+                   asp-route-categoryId="@categoryId"
+                   class="btn btn-outline-dark">
+                    Next
+                </a>
+            }
+
+        </div>
+    }
+
+</div>
