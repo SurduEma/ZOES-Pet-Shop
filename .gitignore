@@ -1,0 +1,15 @@
+
+.vs/
+**/bin/
+**/obj/
+
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+*.user
+*.suo
+
+.env
+appsettings.Development.json
